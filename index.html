@@ -153,6 +153,34 @@
   .card h3{ font-family:var(--display); font-weight:600; font-size:1.25rem; letter-spacing:-.01em; }
   .card p{ color:var(--muted); font-size:.92rem; margin-top:.4rem; }
 
+  /* ==================== ÖNE ÇIKAN PROJE ==================== */
+  .project{ margin-bottom:4rem; }
+  .project .hero-img{
+    width:100%; aspect-ratio:16/9; object-fit:cover;
+    border:1px solid var(--hairline); background:#0b0d10;
+  }
+  .project .pmeta{ display:flex; gap:1.6rem; margin:1.6rem 0 .8rem; flex-wrap:wrap; }
+  .project h3{ font-family:var(--display); font-weight:700; font-size:clamp(1.4rem,3vw,2rem); letter-spacing:-.02em; }
+  .project .desc{ color:var(--muted); max-width:60ch; margin-top:.8rem; }
+
+  .gallery{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.8rem; }
+  @media (max-width:760px){ .gallery{ grid-template-columns:repeat(2,1fr); } }
+  .gallery img{
+    width:100%; aspect-ratio:16/9; object-fit:cover; cursor:pointer;
+    border:1px solid var(--hairline); transition:border-color .2s, opacity .2s;
+  }
+  .gallery img:hover{ border-color:var(--brass); opacity:.9; }
+  .gallery .sec{ object-fit:contain; background:#f4f2ec; }
+
+  /* lightbox */
+  .lb{ position:fixed; inset:0; z-index:100; background:rgba(8,9,11,.94);
+    display:none; align-items:center; justify-content:center; padding:4vw; }
+  .lb.open{ display:flex; }
+  .lb img{ max-width:100%; max-height:90vh; object-fit:contain; border:1px solid var(--hairline); }
+  .lb .close{ position:absolute; top:20px; right:26px; font-family:var(--mono); font-size:.8rem;
+    letter-spacing:.1em; color:var(--muted); cursor:pointer; text-transform:uppercase; }
+  .lb .close:hover{ color:var(--text); }
+
   /* ==================== HAKKIMDA + CV ==================== */
   .about{ display:grid; grid-template-columns:1fr 1.4fr; gap:3.5rem; }
   @media (max-width:820px){ .about{ grid-template-columns:1fr; gap:2.5rem; } }
@@ -239,47 +267,32 @@
       <span class="rule"></span>
     </div>
 
-    <div class="grid">
+    <!-- ===== ÖNE ÇIKAN PROJE — kendi projelerini bu yapıya göre çoğaltabilirsin ===== -->
+    <article class="project reveal">
+      <img class="hero-img" src="images/berlin-04.jpg" alt="Berlin Co-Housing — gün batımı su kenarı görünüm">
+      <div class="pmeta mono">
+        <span>2024</span><span>Berlin, Almanya</span><span>Co-Housing / Konut</span>
+      </div>
+      <h3>Berlin Co-Housing</h3>
+      <p class="desc">
+        Su kenarında kurgulanan, ortak yaşam alanlarını ve kamusal iskeleyi
+        merkeze alan bir co-housing önerisi. Tuğla dokulu bloklar, avlular ve
+        peyzajla çevrelenen ortak zeminde bireysel konutlar ile paylaşımlı
+        mekânları bir araya getiriyor.
+      </p>
 
-      <!-- ---- PROJE KARTI (kopyalayıp çoğaltabilirsin) ----
-           Foto eklemek için: <div class="thumb" style="background-image:url('images/proje1.jpg')"></div> -->
-      <article class="card reveal">
-        <div class="thumb"></div>
-        <div class="body">
-          <div class="meta mono"><span>2025</span><span>Bursa</span><span>Konut</span></div>
-          <h3>Eşik Evi</h3>
-          <p>İç avlu etrafında kurgulanan, gündüz ışığını mevsime göre süzen tek aile konutu.</p>
-        </div>
-      </article>
+      <div class="gallery">
+        <img src="images/berlin-02.jpg" alt="İskele ve su kenarı" onclick="openLB(this.src)">
+        <img src="images/berlin-03.jpg" alt="Avlu ve oturma alanı" onclick="openLB(this.src)">
+        <img src="images/berlin-01.jpg" alt="Sokak perspektifi" onclick="openLB(this.src)">
+        <img src="images/berlin-05.jpg" alt="Zemin kat ortak alan" onclick="openLB(this.src)">
+        <img class="sec" src="images/berlin-section.jpg" alt="A-A ve C-C kesitleri" onclick="openLB(this.src)">
+      </div>
+    </article>
 
-      <article class="card reveal">
-        <div class="thumb"></div>
-        <div class="body">
-          <div class="meta mono"><span>2024</span><span>İstanbul</span><span>Kültür</span></div>
-          <h3>Kıyı Kütüphanesi</h3>
-          <p>Su ile kara arasında kademeli teraslarla inen kamusal okuma mekânı.</p>
-        </div>
-      </article>
+    <!-- Yeni proje eklemek istediğinde yukarıdaki <article class="project"> bloğunu
+         kopyalayıp görselleri, ismi, yılı ve açıklamayı değiştir. -->
 
-      <article class="card reveal">
-        <div class="thumb"></div>
-        <div class="body">
-          <div class="meta mono"><span>2024</span><span>Okul projesi</span><span>Kentsel</span></div>
-          <h3>Boşluk Meydanı</h3>
-          <p>Terk edilmiş bir sanayi parselinin kamusal meydana dönüşümü için öneri.</p>
-        </div>
-      </article>
-
-      <article class="card reveal">
-        <div class="thumb"></div>
-        <div class="body">
-          <div class="meta mono"><span>2023</span><span>Konsept</span><span>Pavyon</span></div>
-          <h3>Işık Pavyonu</h3>
-          <p>Geçici sergi için ahşap kafes ve translüsent yüzeylerden oluşan hafif strüktür.</p>
-        </div>
-      </article>
-
-    </div>
   </div>
 </section>
 
@@ -362,6 +375,18 @@
     </div>
   </div>
 </footer>
+
+<!-- lightbox -->
+<div class="lb" id="lb" onclick="closeLB()">
+  <span class="close">Kapat ✕</span>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+  function openLB(src){ var lb=document.getElementById('lb'); document.getElementById('lb-img').src=src; lb.classList.add('open'); }
+  function closeLB(){ document.getElementById('lb').classList.remove('open'); }
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLB(); });
+</script>
 
 <script>
   // scroll reveal
