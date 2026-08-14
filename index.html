@@ -73,7 +73,9 @@
     border-bottom:1px solid var(--hairline);
   }
   .nav{ display:flex; align-items:center; justify-content:space-between; height:64px; }
-  .brand{ font-family:var(--display); font-weight:700; letter-spacing:-.01em; font-size:1.05rem; }
+  .brand{ font-family:var(--display); font-weight:700; letter-spacing:-.01em; font-size:1.05rem; display:flex; align-items:center; gap:.6rem; }
+  .brand-photo{ width:34px; height:34px; border-radius:50%; object-fit:cover; border:1px solid var(--brass); }
+  .brand .name{ display:inline; }
   .brand span{ color:var(--brass); }
   nav.links{ display:flex; gap:2rem; }
   nav.links a{ font-family:var(--mono); font-size:.74rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); transition:color .2s; }
@@ -201,7 +203,7 @@
 <header>
   <div class="wrap nav">
     <!-- İSİM -->
-    <a class="brand" href="#top">Batın İnan<span>.</span></a>
+    <a class="brand" href="#top"><img class="brand-photo" src="images/batin.jpg" alt="Batın İnan"><span class="name">Batın İnan<span>.</span></span></a>
     <nav class="links">
       <a href="#work">Projeler</a>
       <a href="#about">Hakkımda</a>
